@@ -13,13 +13,13 @@ export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Sub
     this.fillEntity(emailSubscriber);
   }
 
-  public fillEntity(suscriber: Subscriber) {
-    this._id = suscriber._id;
-    this.email = suscriber.email;
-    this.userId = suscriber.userId;
-    this.firstName = suscriber.firstName;
-    this.lastName = suscriber.lastName;
-    this.subscribersEmails = suscriber.subscribersEmails;
+  public fillEntity(subscriber: Subscriber) {
+    this._id = subscriber._id;
+    this.email = subscriber.email;
+    this.userId = subscriber.userId;
+    this.firstName = subscriber.firstName;
+    this.lastName = subscriber.lastName;
+    this.subscribersEmails = subscriber.subscribersEmails;
   }
 
   public toObject(): EmailSubscriberEntity {

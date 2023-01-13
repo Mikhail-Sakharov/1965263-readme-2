@@ -15,5 +15,5 @@ export class CreateSubscriberDto {
   userId: string;
 
   @IsArray()
-  subscribersIds: string[];
+  subscribersEmails: string[];
 }

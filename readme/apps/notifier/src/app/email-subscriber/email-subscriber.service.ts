@@ -12,7 +12,7 @@ export class EmailSubscriberService {
     private readonly mailService: MailService
   ) {}
 
-  public async addSubscriber(subscriber: CreateSubscriberDto) {
+  public async registerNewBlogUser(subscriber: CreateSubscriberDto) {
     const {email} = subscriber;
     const existingSubscriber = await this.emailSubscriberRepository.findByEmail(email);
 

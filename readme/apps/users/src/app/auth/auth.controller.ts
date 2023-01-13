@@ -56,26 +56,22 @@ export class AuthController {
     return fillObject(UserRdo, existUser);
   }
 
-  @Patch('passchange')
-  async changePassword() {
-    throw new Error('"changePassword": Not implemented!')
-  }
-
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
     type: UserRdo
   })
-  @Post(':id/subscribe')
+  @Post(':id/subscription')
   @HttpCode(HttpStatus.OK)
   async subscribe(
     @Param('id') id: string,
     @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    return this.authService.toggleSubscriberStatus(id, req.user.email);
+    const subscription = await this.authService.toggleSubscriberStatus(id, req.user.email);
+    return fillObject(UserRdo, subscription);
   }
 
-  @Post(':id/unsubscribe')
-  async unsubscribe(@Param('id') id: string) {
-    throw new Error(`"unsubscribe": Not implemented! ${id}`)
+  @Patch('passchange')
+  async changePassword() {
+    throw new Error('"changePassword": Not implemented!')
   }
 }

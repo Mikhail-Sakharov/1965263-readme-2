@@ -24,8 +24,8 @@ Content-Type: application/json
 }
 
 ### Подписка на пользователя
-POST http://localhost:3330/api/auth/63c0643ea074395b7d391c82/subscribe HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MwNjQzZWEwNzQzOTViN2QzOTFjODIiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3RuYW1lIjoibWlraGFpbCIsImxhc3RuYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM1NTMxMDMsImV4cCI6MTY3MzU1MzE2M30.ODBNlXhBsaSBvIa7emFjfok3GeTxgaDZhtefchTJsFY
+POST http://localhost:3330/api/auth/63c15485df41da77087eecbd/subscription HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MxNTQ4NWRmNDFkYTc3MDg3ZWVjYmQiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3RuYW1lIjoibWlraGFpbCIsImxhc3RuYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM2MTUyNTgsImV4cCI6MTY3MzYxNTMxOH0.JW7EI42xR8-AR-sPkRuQl0gu25wqwm2EBcpz8EI2gQo
 
 ### =============================================== ПУБЛИКАЦИИ ===================================================
 

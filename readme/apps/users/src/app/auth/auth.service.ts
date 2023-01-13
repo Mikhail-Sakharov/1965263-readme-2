@@ -36,7 +36,7 @@ export class AuthService {
     const createdUser = await this.userRepository.create(userEntity)
 
     this.rabbitClient.emit(
-      {cmd: CommandEvent.AddSubscriber},
+      {cmd: CommandEvent.RegisterNewBlogUser},
       {
         email: createdUser.email,
         firstName: createdUser.firstName,
@@ -87,18 +87,38 @@ export class AuthService {
   async toggleSubscriberStatus(id: string, email: string) {
     const user = await this.getUser(id);
     const subscribersEmails = [...user.subscribersEmails];
-    const existsSuscriber = subscribersEmails.some((subscriberEmail) => subscriberEmail === email);
+    const existsSubscriber = subscribersEmails.some((subscriberEmail) => subscriberEmail === email);
 
-    if (existsSuscriber) {
+    if (existsSubscriber) {
       const updatedSubscribersEmails = subscribersEmails.filter((subscriberEmail) => subscriberEmail !== email);
       const updatedUser = {...user, subscribersEmails: updatedSubscribersEmails};
       const updatedUserEntity = new UserEntity(updatedUser);
-      return await this.userRepository.update(id, updatedUserEntity);
+      const updatedUserEntry = await this.userRepository.update(id, updatedUserEntity);
+
+      this.rabbitClient.emit(
+        {cmd: CommandEvent.RemoveSubscriber},
+        {
+          authorEmail: updatedUserEntry.email,
+          subscriberEmail: email
+        }
+      );
+      
+      return updatedUserEntry;
     }
 
     subscribersEmails.push(email);
     const updatedUser = {...user, subscribersEmails};
     const updatedUserEntity = new UserEntity(updatedUser);
-    return await this.userRepository.update(id, updatedUserEntity);
+    const updatedUserEntry = await this.userRepository.update(id, updatedUserEntity);
+
+    this.rabbitClient.emit(
+      {cmd: CommandEvent.AddSubscriber},
+      {
+        authorEmail: updatedUserEntry.email,
+        subscriberEmail: email
+      }
+    );
+
+    return updatedUserEntry;
   }
 }
