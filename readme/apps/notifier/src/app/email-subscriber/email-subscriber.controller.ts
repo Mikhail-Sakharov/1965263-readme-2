@@ -3,6 +3,7 @@ import {CreateSubscriberDto} from './dto/create-subscriber.dto';
 import {EventPattern} from '@nestjs/microservices';
 import {CommandEvent} from '@readme/shared-types';
 import {Controller} from '@nestjs/common';
+import {ToggleSuscriberStatusDto} from './dto/toggle-suscriber-status.dto';
 //import {IncrementPostsCountDto} from './dto/create-post.dto';
 
 @Controller()
@@ -22,12 +23,12 @@ export class EmailSubscriberController {
   }
 
   @EventPattern({cmd: CommandEvent.AddSubscriber})
-  public async addSubscriber(data) {
-    throw new Error(`EmailSubscriberController:addSubscriber not implemented ${data}`);
+  public async addSubscriber(subscriberData: ToggleSuscriberStatusDto) {
+    return this.subscriberService.toggleSubscriberStatus(subscriberData);
   }
 
   @EventPattern({cmd: CommandEvent.RemoveSubscriber})
-  public async removeSubscriber(data) {
-    throw new Error(`EmailSubscriberController:removeSubscriber not implemented ${data}`);
+  public async removeSubscriber(subscriberData: ToggleSuscriberStatusDto) {
+    return this.subscriberService.toggleSubscriberStatus(subscriberData);
   }
 }

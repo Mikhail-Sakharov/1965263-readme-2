@@ -4,6 +4,7 @@ import {CreateSubscriberDto} from './dto/create-subscriber.dto';
 import {EMAIL_SUBSCRIBER_EXISTS} from './email-subscriber.constant';
 import {EmailSubscriberEntity} from './email-subscriber.entity';
 import {MailService} from '../mail/mail.service';
+import {ToggleSuscriberStatusDto} from './dto/toggle-suscriber-status.dto';
 
 @Injectable()
 export class EmailSubscriberService {
@@ -20,7 +21,7 @@ export class EmailSubscriberService {
       throw new Error(EMAIL_SUBSCRIBER_EXISTS);
     }
 
-    this.mailService.sendNotifyNewSubscriber(subscriber);
+    this.mailService.sendNewUserRegisteredNotification(subscriber);
 
     return await this.emailSubscriberRepository.create(new EmailSubscriberEntity(subscriber));
   }
@@ -29,6 +30,32 @@ export class EmailSubscriberService {
     const users = await this.emailSubscriberRepository.find();
     const emails = users.map((user) => user.email);
     
-    return this.mailService.sendNotifyNewPost(emails);
+    return this.mailService.sendNewPostNotification(emails);
+  }
+
+  public async toggleSubscriberStatus({authorEmail, subscriberEmail}: ToggleSuscriberStatusDto) {
+    const author = await this.emailSubscriberRepository.findByEmail(authorEmail);
+    const authorSubscribers = [...author.subscribersEmails];
+    const existingSubscriber = authorSubscribers.some((suscriber) => suscriber === subscriberEmail);
+
+    if (existingSubscriber) {
+      const updatedAuthorSubscribers = authorSubscribers.filter((email) => email !== subscriberEmail);
+      const updatedAuthor = {...author, subscribersEmails: updatedAuthorSubscribers};
+      const updatedAuthorEntity = new EmailSubscriberEntity(updatedAuthor);
+      const updatedAuthorEntry = await this.emailSubscriberRepository.update(author._id, updatedAuthorEntity);
+
+      this.mailService.sendRemoveSubscriberNotification({authorEmail, subscriberEmail});
+
+      return updatedAuthorEntry;
+    }
+
+    authorSubscribers.push(subscriberEmail);
+    const updatedAuthor = {...author, subscribersEmails: authorSubscribers};
+    const updatedAuthorEntity = new EmailSubscriberEntity(updatedAuthor);
+    const updatedAuthorEntry = await this.emailSubscriberRepository.update(author._id, updatedAuthorEntity);
+
+    this.mailService.sendAddSubscriberNotification({authorEmail, subscriberEmail});
+
+    return updatedAuthorEntry;
   }
 }
