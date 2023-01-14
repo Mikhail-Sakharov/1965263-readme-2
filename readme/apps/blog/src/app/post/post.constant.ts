@@ -22,4 +22,6 @@ export const SortTypeMap = {
   }
 };
 
-export const RABBITMQ_SERVICE = Symbol('RABBITMQ_SERVICE');
+export const NOTIFIER_RABBITMQ_SERVICE = Symbol('NOTIFIER_RABBITMQ_SERVICE');
+
+export const USERS_RABBITMQ_SERVICE = Symbol('USERS_RABBITMQ_SERVICE');

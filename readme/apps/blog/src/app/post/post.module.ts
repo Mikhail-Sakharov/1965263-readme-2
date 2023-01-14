@@ -6,8 +6,8 @@ import {PostController} from './post.controller';
 import {CommentModule} from '../comment/comment.module';
 import {PostRepository} from './post.repository';
 import {PrismaModule} from '../prisma/prisma.module';
-import {RABBITMQ_SERVICE} from './post.constant';
-import {getRabbitMqConfig} from '../config/rabbitmq.config';
+import {NOTIFIER_RABBITMQ_SERVICE, USERS_RABBITMQ_SERVICE} from './post.constant';
+import {getNotifierRabbitMqConfig, getUsersRabbitMqConfig} from '../config/rabbitmq.config';
 
 @Module({
   imports: [
@@ -15,8 +15,13 @@ import {getRabbitMqConfig} from '../config/rabbitmq.config';
     PrismaModule,
     ClientsModule.registerAsync([
       {
-        name: RABBITMQ_SERVICE,
-        useFactory: getRabbitMqConfig,
+        name: NOTIFIER_RABBITMQ_SERVICE,
+        useFactory: getNotifierRabbitMqConfig,
+        inject: [ConfigService]
+      },
+      {
+        name: USERS_RABBITMQ_SERVICE,
+        useFactory: getUsersRabbitMqConfig,
         inject: [ConfigService]
       }
     ])

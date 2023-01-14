@@ -14,7 +14,10 @@ export default Joi.object({
   RABBIT_PASSWORD: Joi
     .string()
     .required(),
-  RABBIT_BLOG_SERVICE_QUEUE: Joi
+  RABBIT_NOTIFIER_SERVICE_QUEUE: Joi
     .string()
-    .required()
+    .required(),
+  RABBIT_USERS_SERVICE_QUEUE: Joi
+    .string()
+    .required(),
 });

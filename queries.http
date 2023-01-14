@@ -36,8 +36,8 @@ Content-Type: application/json
 }
 
 ### Подписка на пользователя
-POST http://localhost:3330/api/auth/63c289a669796f3c17aff0ac/subscription HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MyODVmYjY0MTgzY2IzY2IyZDJmMDIiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3RuYW1lIjoibWlraGFpbCIsImxhc3RuYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM2OTM2NzcsImV4cCI6MTY3MzY5MzczN30.IgkdgwwRs0yM49Ai5qhTaM45xbl4zP-7-MzlkjMjwKY
+POST http://localhost:3330/api/auth/63c2affce238e312c413ae17/subscription HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MyYWZmYWUyMzhlMzEyYzQxM2FlMTMiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3RuYW1lIjoibWlraGFpbCIsImxhc3RuYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM3MDM1ODAsImV4cCI6MTY3MzcwMzY0MH0.lGfXghORvBnWlKlWcFbukrONMvYZxrtX9DJaaVJTXtc
 
 ### =============================================== ПУБЛИКАЦИИ ===================================================
 
@@ -109,7 +109,7 @@ Content-Type: application/json
     "url": "https://www.youtube.com/watch?v=Q7t4JOt-KH4"
   },
   "tags": ["qwe", "asd", "zxc"],
-  "authorId": "63c2a743da96cafbde7332b3"
+  "authorId": "63c2affae238e312c413ae13"
 }
 
 ### Создание публикации типа text
