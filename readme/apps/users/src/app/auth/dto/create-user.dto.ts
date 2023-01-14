@@ -38,6 +38,6 @@ export class CreateUserDto {
     description: 'User\'s avatar path',
     example: 'avatar.png'
   })
-  @IsString()
+  //@IsString()
   public avatarPath?: string;
 }

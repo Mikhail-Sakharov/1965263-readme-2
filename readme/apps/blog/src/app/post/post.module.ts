@@ -3,7 +3,6 @@ import {ConfigService} from '@nestjs/config';
 import {ClientsModule} from '@nestjs/microservices';
 import {PostService} from './post.service';
 import {PostController} from './post.controller';
-import {PostMemoryRepository} from './post-memory.repository';
 import {CommentModule} from '../comment/comment.module';
 import {PostRepository} from './post.repository';
 import {PrismaModule} from '../prisma/prisma.module';
@@ -22,7 +21,7 @@ import {getRabbitMqConfig} from '../config/rabbitmq.config';
       }
     ])
   ],
-  providers: [PostService, PostMemoryRepository, PostRepository],
+  providers: [PostService, PostRepository],
   controllers: [PostController]
 })
 export class PostModule {}
