@@ -4,18 +4,18 @@
  */
 
 import {Logger, ValidationPipe} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import {ConfigService} from '@nestjs/config';
 import {NestFactory} from '@nestjs/core';
 import {SwaggerModule, DocumentBuilder} from '@nestjs/swagger';
 
 import {AppModule} from './app/app.module';
-import { getRabbitMqConfig } from './config/rabbitmq.config';
+import {getUsersServiceRabbitMqConfig} from './config/rabbitmq.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get<ConfigService>(ConfigService);
-  app.connectMicroservice(getRabbitMqConfig(configService));
+  app.connectMicroservice(getUsersServiceRabbitMqConfig(configService));
 
   await app.startAllMicroservices();
   Logger.log(`🚀 Users service is running on`);

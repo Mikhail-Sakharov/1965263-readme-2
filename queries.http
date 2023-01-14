@@ -109,7 +109,7 @@ Content-Type: application/json
     "url": "https://www.youtube.com/watch?v=Q7t4JOt-KH4"
   },
   "tags": ["qwe", "asd", "zxc"],
-  "authorId": "63c285fb64183cb3cb2d2f02"
+  "authorId": "63c2a743da96cafbde7332b3"
 }
 
 ### Создание публикации типа text

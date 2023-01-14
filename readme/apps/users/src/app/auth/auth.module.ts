@@ -9,7 +9,7 @@ import {getJwtConfig} from '../../config/jwt.config';
 import {JwtStrategy} from './strategies/jwt.strategy';
 import {ClientsModule} from '@nestjs/microservices';
 import {RABBITMQ_SERVICE} from './auth.constant';
-import {getRabbitMqConfig} from '../../config/rabbitmq.config';
+import {getAuthServiceRabbitMqConfig} from '../../config/rabbitmq.config';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import {getRabbitMqConfig} from '../../config/rabbitmq.config';
     ClientsModule.registerAsync([
       {
         name: RABBITMQ_SERVICE,
-        useFactory: getRabbitMqConfig,
+        useFactory: getAuthServiceRabbitMqConfig,
         inject: [ConfigService]
       }
     ])
