@@ -1,5 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger';
-import {/* IsDataURI,  */IsEmail, IsString/* , IsUrl */} from 'class-validator';
+import {IsEmail, IsString} from 'class-validator';
 import {AUTH_USER_EMAIL_NOT_VALID} from '../auth.constant';
 
 export class CreateUserDto {
@@ -38,7 +38,6 @@ export class CreateUserDto {
     description: 'User\'s avatar path',
     example: 'avatar.png'
   })
-  //@IsDataURI()
-  //@IsUrl()
+  @IsString()
   public avatarPath?: string;
 }

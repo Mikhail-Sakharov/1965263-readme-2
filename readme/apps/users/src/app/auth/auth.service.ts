@@ -1,4 +1,3 @@
-import * as dayjs from 'dayjs';
 import {Inject, Injectable, UnauthorizedException} from '@nestjs/common';
 import {UserEntity} from '../user/user.entity';
 import {CreateUserDto} from './dto/create-user.dto';
@@ -27,7 +26,6 @@ export class AuthService {
     const userEntity = await new UserEntity({
       ...dto,
       passwordHash: '',
-      createdAt: dayjs().toISOString(),
       postsCount: 0,
       subscribersCount: 0,
       subscribersEmails: []

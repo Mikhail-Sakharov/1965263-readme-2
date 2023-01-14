@@ -5,7 +5,6 @@ export interface User {
   lastName: string;
   passwordHash: string;
   avatarPath?: string;
-  createdAt?: string;
   postsCount: number;
   subscribersCount: number;
   subscribersEmails: string[];

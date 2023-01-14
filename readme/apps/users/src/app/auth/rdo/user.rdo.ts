@@ -58,4 +58,11 @@ export class UserRdo {
   })
   @Expose()
   public subscribersEmails: string[];
+
+  @ApiProperty({
+    description: 'The date a user was created at',
+    example: '100'
+  })
+  @Expose()
+  public createdAt: string[];
 }
