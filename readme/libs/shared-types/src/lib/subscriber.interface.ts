@@ -4,4 +4,5 @@ export interface Subscriber {
   firstName: string;
   lastName: string;
   userId: string;
+  subscribersEmails: string[];
 }

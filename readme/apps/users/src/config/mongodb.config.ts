@@ -1,4 +1,4 @@
-import { MongooseModuleAsyncOptions } from '@nestjs/mongoose';
+import {MongooseModuleAsyncOptions} from '@nestjs/mongoose';
 import {ConfigService} from '@nestjs/config';
 import {getMongoConnectionString} from '@readme/core';
 
@@ -11,7 +11,7 @@ export function getMongoDbConfig(): MongooseModuleAsyncOptions {
         host: configService.get<string>('database.host'),
         port: configService.get<number>('database.port'),
         authDatabase: configService.get<string>('database.authBase'),
-        databaseName: configService.get<string>('database.databaseName'),
+        databaseName: configService.get<string>('database.databaseName')
       })
     }),
     inject: [ConfigService]

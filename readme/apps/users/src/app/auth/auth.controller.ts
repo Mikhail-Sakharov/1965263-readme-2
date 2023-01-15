@@ -1,4 +1,4 @@
-import {Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards} from '@nestjs/common';
+import {Request, Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards, RawBodyRequest} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {fillObject} from '@readme/core';
 import {MongoIdValidationPipe} from '../pipes/mongoid-validation.pipe';
@@ -8,6 +8,15 @@ import {LoginUserDto} from './dto/login-user.dto';
 import {LoggedUserRdo} from './rdo/logged-user.rdo';
 import {UserRdo} from './rdo/user.rdo';
 import {JwtAuthGuard} from './guards/jwt-auth.guard';
+
+interface LoggedUser {
+  user: {
+    sub: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+  }
+}
 
 @ApiTags('auth')
 @Controller('auth')
@@ -47,23 +56,22 @@ export class AuthController {
     return fillObject(UserRdo, existUser);
   }
 
-  @Get('login')
-  async checkAuthStatus() {
-    throw new Error('"checkAuthenticate": Not implemented!')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    type: UserRdo
+  })
+  @Post(':id/subscription')
+  @HttpCode(HttpStatus.OK)
+  async subscribe(
+    @Param('id') id: string,
+    @Request() req: RawBodyRequest<LoggedUser>
+  ) {
+    const subscription = await this.authService.toggleSubscriberStatus(id, req.user.email);
+    return fillObject(UserRdo, subscription);
   }
 
   @Patch('passchange')
   async changePassword() {
     throw new Error('"changePassword": Not implemented!')
-  }
-
-  @Post(':id/subscribe')
-  async subscribe(@Param('id') id: string) {
-    throw new Error(`"subscribe": Not implemented! ${id}`)
-  }
-
-  @Post(':id/unsubscribe')
-  async unsubscribe(@Param('id') id: string) {
-    throw new Error(`"unsubscribe": Not implemented! ${id}`)
   }
 }

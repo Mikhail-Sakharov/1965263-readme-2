@@ -8,6 +8,7 @@ import {AuthModule} from './auth/auth.module';
 import envSchema from './env.schema';
 import {UserModule} from './user/user.module';
 import {jwtOptions} from '../config/jwt.config';
+import {rabbitMqOptions} from '../config/rabbitmq.config';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import {jwtOptions} from '../config/jwt.config';
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [databaseConfig, jwtOptions],
+      load: [databaseConfig, jwtOptions, rabbitMqOptions],
       validationSchema: envSchema
     }),
     MongooseModule.forRootAsync(

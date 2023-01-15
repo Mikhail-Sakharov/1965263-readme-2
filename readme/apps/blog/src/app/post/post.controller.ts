@@ -1,21 +1,19 @@
 import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {fillObject} from '@readme/core';
-//import {CommentService} from '../comment/comment.service';
 import {CreatePostDto} from './dto/create-post.dto';
 import {RepostDto} from './dto/repost.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {MAX_POSTS_COUNT} from './post.constant';
 import {PostService} from './post.service';
-import { PostQuery } from './query/post.query';
+import {PostQuery} from './query/post.query';
 import {PostRdo} from './rdo/post.rdo';
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostController {
   constructor(
-    private readonly postService: PostService,
-    //private commentService: CommentService
+    private readonly postService: PostService
   ) {}
 
   @ApiResponse({
@@ -27,7 +25,6 @@ export class PostController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() dto: CreatePostDto) {
     const post = await this.postService.createPost(dto);
-    // инкрементировать значение поля postsCount у юзера
     return fillObject(PostRdo, post);
   }
 

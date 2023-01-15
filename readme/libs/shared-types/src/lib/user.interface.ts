@@ -5,8 +5,7 @@ export interface User {
   lastName: string;
   passwordHash: string;
   avatarPath?: string;
-  createdAt?: string;
   postsCount: number;
   subscribersCount: number;
-  //likedPosts: string[]; // айдишники понравившихся постов
+  subscribersEmails: string[];
 }

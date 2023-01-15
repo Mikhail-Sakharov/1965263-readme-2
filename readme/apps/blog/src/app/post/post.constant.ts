@@ -21,3 +21,7 @@ export const SortTypeMap = {
     date: 'desc'
   }
 };
+
+export const NOTIFIER_RABBITMQ_SERVICE = Symbol('NOTIFIER_RABBITMQ_SERVICE');
+
+export const USERS_RABBITMQ_SERVICE = Symbol('USERS_RABBITMQ_SERVICE');

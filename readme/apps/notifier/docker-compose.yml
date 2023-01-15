@@ -28,17 +28,17 @@ services:
   mongodb:
     image: mongo
     restart: always
-    container_name: mongodb
+    container_name: readme.notifier.mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: test
       MONGO_INITDB_DATABASE: readme-notifier
     ports:
-      - 27017:27017
+      - 27018:27017
     volumes:
       - ./db:/data/db
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/readme-notifier --quiet
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/typoteka-notify --quiet
       interval: 10s
       timeout: 10s
       retries: 5
@@ -46,7 +46,7 @@ services:
   mongodb-express:
     image: mongo-express
     restart: always
-    container_name: mongo-express-notifier
+    container_name: readme.notifier.mongo-express
     ports:
       - 8080:8081
     environment:

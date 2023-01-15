@@ -5,7 +5,7 @@ export const rabbitMqOptions = registerAs('rmq', () => ({
   user: process.env.RABBIT_USER,
   password: process.env.RABBIT_PASSWORD,
   host: process.env.RABBIT_HOST,
-  queue: process.env.RABBIT_NOTIFIER_SERVICE_QUEUE,
+  queue: process.env.RABBIT_NOTIFIER_SERVICE_QUEUE
 }));
 
 export function getRabbitMqConfig(configService: ConfigService): RmqOptions {
@@ -23,7 +23,7 @@ export function getRabbitMqConfig(configService: ConfigService): RmqOptions {
       persistent: true,
       noAck: true,
       queueOptions: {
-        durable: true,
+        durable: true
       }
     }
   }

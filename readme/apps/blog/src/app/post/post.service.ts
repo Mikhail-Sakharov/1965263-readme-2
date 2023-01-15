@@ -1,15 +1,20 @@
-import {Injectable} from '@nestjs/common';
+import {Inject, Injectable} from '@nestjs/common';
 import {CreatePostDto} from './dto/create-post.dto';
 import {RepostDto} from './dto/repost.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {PostRepository} from './post.repository';
 import {PostEntity} from './post.entity';
 import {PostQuery} from './query/post.query';
+import {CommandEvent} from '@readme/shared-types';
+import {NOTIFIER_RABBITMQ_SERVICE, USERS_RABBITMQ_SERVICE} from './post.constant';
+import {ClientProxy} from '@nestjs/microservices';
 
 @Injectable()
 export class PostService {
   constructor(
-    private readonly postRepository: PostRepository
+    private readonly postRepository: PostRepository,
+    @Inject(NOTIFIER_RABBITMQ_SERVICE) private readonly notifierRabbitClient: ClientProxy,
+    @Inject(USERS_RABBITMQ_SERVICE) private readonly usersRabbitClient: ClientProxy
   ) {}
 
   async createPost(dto: CreatePostDto) {
@@ -20,6 +25,20 @@ export class PostService {
       originalAuthorId: dto.authorId,
       originalId: 0
     });
+
+    this.notifierRabbitClient.emit(
+      {cmd: CommandEvent.AddPost},
+      {
+        id: dto.authorId
+      }
+    );
+
+    this.usersRabbitClient.emit(
+      {cmd: CommandEvent.IncrementPostsCount},
+      {
+        id: dto.authorId
+      }
+    );
 
     return await this.postRepository.create(postEntity);
   }

@@ -10,9 +10,9 @@ export class UserEntity implements User {
   public lastName: string;
   public passwordHash: string;
   public avatarPath: string;
-  public createdAt: string;
   public postsCount: number;
   public subscribersCount: number;
+  public subscribersEmails: string[];
 
   constructor(user: User) {
     this.fillEntity(user);
@@ -39,8 +39,8 @@ export class UserEntity implements User {
     this.lastName = user.lastName;
     this.passwordHash = user.passwordHash;
     this.avatarPath = user.avatarPath ?? '';
-    this.createdAt = user.createdAt;
     this.postsCount = user.postsCount;
     this.subscribersCount = user.subscribersCount;
+    this.subscribersEmails = user.subscribersEmails;
   }
 }

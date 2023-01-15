@@ -5,6 +5,7 @@ import {NOTIFIER_SERVICE_ENV_PATH} from './app.constant';
 import {mailOptions} from './config/mail.config';
 import {getMongoDbConfig, mongoDbOptions} from './config/mongodb.config';
 import {rabbitMqOptions} from './config/rabbitmq.config';
+import {EmailSubscriberModule} from './email-subscriber/email-subscriber.module';
 import {validateEnvironments} from './env.validation';
 import {MailModule} from './mail/mail.module';
 
@@ -15,10 +16,11 @@ import {MailModule} from './mail/mail.module';
       isGlobal: true,
       envFilePath: NOTIFIER_SERVICE_ENV_PATH,
       load: [mongoDbOptions, rabbitMqOptions, mailOptions],
-      validate: validateEnvironments,
+      validate: validateEnvironments
     }),
     MongooseModule.forRootAsync(getMongoDbConfig()),
-    MailModule,
+    EmailSubscriberModule,
+    MailModule
   ],
   controllers: [],
   providers: []
