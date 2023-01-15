@@ -1,6 +1,9 @@
 import {Module} from '@nestjs/common';
-import {ConfigService} from '@nestjs/config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
+import {PassportModule} from '@nestjs/passport';
 import {ClientsModule} from '@nestjs/microservices';
+import {JwtModule} from '@nestjs/jwt';
+import {getJwtConfig, JwtStrategy} from '@readme/core';
 import {PostService} from './post.service';
 import {PostController} from './post.controller';
 import {CommentModule} from '../comment/comment.module';
@@ -13,6 +16,12 @@ import {getNotifierRabbitMqConfig, getUsersRabbitMqConfig} from '../config/rabbi
   imports: [
     CommentModule,
     PrismaModule,
+    PassportModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getJwtConfig
+    }),
     ClientsModule.registerAsync([
       {
         name: NOTIFIER_RABBITMQ_SERVICE,
@@ -26,7 +35,7 @@ import {getNotifierRabbitMqConfig, getUsersRabbitMqConfig} from '../config/rabbi
       }
     ])
   ],
-  providers: [PostService, PostRepository],
+  providers: [PostService, PostRepository, JwtStrategy],
   controllers: [PostController]
 })
 export class PostModule {}

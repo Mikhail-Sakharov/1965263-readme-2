@@ -5,6 +5,7 @@ import {ConfigModule} from '@nestjs/config';
 import {ENV_FILE_PATH} from './app.constant';
 import {rabbitMqOptions} from './config/rabbitmq.config';
 import envSchema from './env.schema';
+import {jwtOptions} from '@readme/core';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import envSchema from './env.schema';
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [rabbitMqOptions],
+      load: [rabbitMqOptions, jwtOptions],
       validationSchema: envSchema
     }),
     PostModule,

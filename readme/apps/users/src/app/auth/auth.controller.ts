@@ -8,10 +8,11 @@ import {LoginUserDto} from './dto/login-user.dto';
 import {LoggedUserRdo} from './rdo/logged-user.rdo';
 import {UserRdo} from './rdo/user.rdo';
 import {JwtAuthGuard} from './guards/jwt-auth.guard';
+import {TransformedUserRdo} from './rdo/transformed-user.rdo';
 
-interface LoggedUser {
+interface LoggedUser { // TODO: в shared types
   user: {
-    sub: string;
+    _id: string;
     email: string;
     firstname: string;
     lastname: string;
@@ -42,7 +43,9 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() dto: LoginUserDto) {
     const user = await this.authService.verifyUser(dto);
-    return this.authService.loginUser(user);
+    const transformedUser = fillObject(TransformedUserRdo, user);
+    const accessToken = await this.authService.loginUser(transformedUser);
+    return fillObject(LoggedUserRdo, {...user, ...accessToken});
   }
 
   @UseGuards(JwtAuthGuard)

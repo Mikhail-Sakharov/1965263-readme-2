@@ -4,9 +4,16 @@ import {CreateUserDto} from './dto/create-user.dto';
 import {LoginUserDto} from './dto/login-user.dto';
 import {UserRepository} from '../user/user.repository';
 import {JwtService} from '@nestjs/jwt';
-import {CommandEvent, User} from '@readme/shared-types';
+import {CommandEvent} from '@readme/shared-types';
 import {RABBITMQ_SERVICE} from './auth.constant';
 import {ClientProxy} from '@nestjs/microservices';
+
+interface TransformedUser { // TODO: в shared types
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -65,12 +72,12 @@ export class AuthService {
     return {...userEntity.toObject()};
   }
 
-  async loginUser(user: User) {
+  async loginUser(user: TransformedUser) {
     const payload = {
-      sub: user._id,
+      _id: user._id,
       email: user.email,
-      firstname: user.firstName,
-      lastname: user.lastName
+      firstName: user.firstName,
+      lastName: user.lastName
     };
 
     return {

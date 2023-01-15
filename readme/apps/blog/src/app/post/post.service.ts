@@ -17,27 +17,24 @@ export class PostService {
     @Inject(USERS_RABBITMQ_SERVICE) private readonly usersRabbitClient: ClientProxy
   ) {}
 
-  async createPost(dto: CreatePostDto) {
+  async createPost(dto: CreatePostDto, id: string) {
     const postEntity = new PostEntity({
       ...dto,
       date: new Date,
       likes: [],
-      originalAuthorId: dto.authorId,
+      authorId: id,
+      originalAuthorId: id,
       originalId: 0
     });
 
     this.notifierRabbitClient.emit(
       {cmd: CommandEvent.AddPost},
-      {
-        id: dto.authorId
-      }
+      {id}
     );
 
     this.usersRabbitClient.emit(
       {cmd: CommandEvent.IncrementPostsCount},
-      {
-        id: dto.authorId
-      }
+      {id}
     );
 
     return await this.postRepository.create(postEntity);
@@ -47,7 +44,6 @@ export class PostService {
     const post = await this.postRepository.findById(postId);
     const originalAuthorId = post.authorId;
     const originalId = post.id;
-    console.log(originalId);
     const postEntity = new PostEntity({
       ...post,
       authorId: dto.authorId,
