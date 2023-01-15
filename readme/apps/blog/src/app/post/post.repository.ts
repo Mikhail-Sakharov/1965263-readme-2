@@ -6,6 +6,7 @@ import {PostEntity} from './post.entity';
 import {Post as prisma_post} from '@prisma/client';
 import {SortTypeMap} from './post.constant';
 import {PostQuery} from './query/post.query';
+import {DraftPostQuery} from './query/draft-post.query';
 
 @Injectable()
 export class PostRepository implements CRUDRepository<PostEntity, number, Post> {
@@ -35,6 +36,43 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
       } : {
         isPublished: {
           equals: true
+        }
+      },
+      include: {
+        comments: true
+      },
+      take: postsCount,
+      skip: (page - 1) * postsCount,
+      orderBy: SortTypeMap[sortType]
+    });
+    return posts;
+  }
+
+  public async findDrafts({page, postsCount, sortType, tag, type}: DraftPostQuery, id: string): Promise<Post[]> {
+    const posts = await this.prisma.post.findMany({
+      where: (tag || type) ? {
+        authorId: {
+          equals: id
+        },
+        isPublished: {
+          equals: false
+        },
+        OR: [
+          {
+            tags: {
+              has: tag ?? null
+            }
+          },
+          {
+            type
+          }
+        ]
+      } : {
+        isPublished: {
+          equals: false
+        },
+        authorId: {
+          equals: id
         }
       },
       include: {

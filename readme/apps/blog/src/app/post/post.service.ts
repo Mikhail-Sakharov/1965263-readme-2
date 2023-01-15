@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@nestjs/common';
+import {Inject, Injectable, UnauthorizedException} from '@nestjs/common';
 import {CreatePostDto} from './dto/create-post.dto';
 import {RepostDto} from './dto/repost.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
@@ -8,6 +8,7 @@ import {PostQuery} from './query/post.query';
 import {CommandEvent} from '@readme/shared-types';
 import {NOTIFIER_RABBITMQ_SERVICE, USERS_RABBITMQ_SERVICE} from './post.constant';
 import {ClientProxy} from '@nestjs/microservices';
+import {DraftPostQuery} from './query/draft-post.query';
 
 @Injectable()
 export class PostService {
@@ -62,8 +63,17 @@ export class PostService {
     return this.postRepository.find(query);
   }
 
-  async updatePost(dto: UpdatePostDto, postId: number) {
+  async getDrafts(query: DraftPostQuery, id: string) {
+    return this.postRepository.findDrafts(query, id);
+  }
+
+  async updatePost(dto: UpdatePostDto, postId: number, authorId: string) {
     const post = await this.postRepository.findById(postId);
+
+    if (authorId !== post.authorId) {
+      throw new UnauthorizedException('You do not have sufficient privileges to update this post!');
+    }
+
     const postEntity = new PostEntity({
       ...post,
       ...dto,
@@ -90,7 +100,13 @@ export class PostService {
     return await this.postRepository.update(postId, updatedPostEntity);
   }
 
-  async deletePost(postId: number) {
+  async deletePost(postId: number, authorId: string) {
+    const post = await this.postRepository.findById(postId);
+    
+    if (authorId !== post.authorId) {
+      throw new UnauthorizedException('You do not have sufficient privileges to delete this post!');
+    }
+
     return await this.postRepository.destroy(postId);
   }
 }

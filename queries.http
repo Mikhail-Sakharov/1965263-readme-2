@@ -44,6 +44,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M0Mzg2M
 ### Запрос публикаций
 GET http://localhost:3331/api/posts HTTP/1.1
 
+### Запрос своих черновиков
+GET http://localhost:3331/api/drafts HTTP/1.1
+
 ### Запрос с сортировкой по лайкам
 GET http://localhost:3331/api/posts?sortType=likes HTTP/1.1
 

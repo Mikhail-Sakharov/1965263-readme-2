@@ -6,6 +6,7 @@ import {RepostDto} from './dto/repost.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {MAX_POSTS_COUNT} from './post.constant';
 import {PostService} from './post.service';
+import {DraftPostQuery} from './query/draft-post.query';
 import {PostQuery} from './query/post.query';
 import {PostRdo} from './rdo/post.rdo';
 
@@ -49,8 +50,23 @@ export class PostController {
   @Get('')
   @HttpCode(HttpStatus.OK)
   async getPosts(@Query() query: PostQuery) {
-    // 3.9. Авторизованный пользователь может получить список своих черновиков (публикации в состоянии «Черновик»).
     const posts = await this.postService.getPosts(query);
+    return fillObject(PostRdo, posts);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.OK,
+    description: `${MAX_POSTS_COUNT} or less posts were received`
+  })
+  @Get('drafts')
+  @HttpCode(HttpStatus.OK)
+  async getDrafts(
+    @Query() query: DraftPostQuery,
+    @Request() req: RawBodyRequest<LoggedUser>
+  ) {
+    const posts = await this.postService.getDrafts(query, req.user._id);
     return fillObject(PostRdo, posts);
   }
 
@@ -64,9 +80,10 @@ export class PostController {
   @HttpCode(HttpStatus.OK)
   async updatePost(
     @Body() dto: UpdatePostDto,
-    @Param('postId') postId: number
+    @Param('postId') postId: number,
+    @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    const post = await this.postService.updatePost(dto, postId);
+    const post = await this.postService.updatePost(dto, postId, req.user._id);
     return fillObject(PostRdo, post);
   }
 
@@ -85,6 +102,7 @@ export class PostController {
     return fillObject(PostRdo, post);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'The post was deleted'
@@ -92,10 +110,11 @@ export class PostController {
   @Delete(':postId')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deletePost(
-    @Param('postId') postId: number
+    @Param('postId') postId: number,
+    @Request() req: RawBodyRequest<LoggedUser>
   ) {
     // декрементировать значение поля postsCount у юзера
-    await this.postService.deletePost(postId);
+    return await this.postService.deletePost(postId, req.user._id);
   }
 
   @ApiResponse({
