@@ -1,10 +1,19 @@
-import {Body, Controller, DefaultValuePipe, Delete, Get, HttpCode, HttpStatus, Param, Post, Query} from '@nestjs/common';
+import {Request, RawBodyRequest, Body, Controller, DefaultValuePipe, Delete, Get, HttpCode, HttpStatus, Param, Post, Query, UseGuards} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
-import {fillObject} from '@readme/core';
+import {fillObject, JwtAuthGuard} from '@readme/core';
 import {MAX_COMMENTS_COUNT, DEFAULT_PAGE} from './comment.constant';
 import {CommentService} from './comment.service';
 import {CreateCommentDto} from './dto/create-comment.dto';
 import {CommentRdo} from './rdo/comment.rdo';
+
+interface LoggedUser { // TODO: в shared types
+  user: {
+    _id: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+  }
+}
 
 @ApiTags('comments')
 @Controller('comments')
@@ -41,6 +50,7 @@ export class CommentController {
     return fillObject(CommentRdo, comments);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'The comment was deleted'
@@ -48,8 +58,9 @@ export class CommentController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':commentId')
   async deleteComment(
-    @Param('commentId') commentId: number
+    @Param('commentId') commentId: number,
+    @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    this.commentService.deleteComment(commentId);
+    this.commentService.deleteComment(commentId, req.user._id);
   }
 }

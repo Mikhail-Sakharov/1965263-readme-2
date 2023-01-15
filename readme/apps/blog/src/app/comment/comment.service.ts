@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, UnauthorizedException} from '@nestjs/common';
 import {CommentEntity} from './comment.entity';
 import {CreateCommentDto} from './dto/create-comment.dto';
 import {CommentRepository} from './comment.repository';
@@ -21,7 +21,12 @@ export class CommentService {
     return await this.commentRepository.find(postId, page, commentsCount);
   }
 
-  async deleteComment(commentId: number) {
+  async deleteComment(commentId: number, userId: string) {
+    const comment = await this.commentRepository.findById(commentId);
+    
+    if (userId !== comment.userId) {
+      throw new UnauthorizedException('You do not have sufficient privileges to delete this comment!');
+    }
     await this.commentRepository.destroy(commentId);
   }
 }

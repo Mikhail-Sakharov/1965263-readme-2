@@ -116,7 +116,7 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
   }
 
   public async destroy(id: number): Promise<void> {
-    await this.prisma.comment.deleteMany({ // как удалить комменты в связанной таблице?
+    await this.prisma.comment.deleteMany({
       where: {
         postId: id
       }

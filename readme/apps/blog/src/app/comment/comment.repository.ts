@@ -35,7 +35,11 @@ export class CommentRepository implements CRUDRepository<CommentEntity, number, 
   }
 
   public async findById(id: number): Promise<Comment | null> {
-    throw new Error(`Method is not implemented ${id}`);
+    return await this.prisma.comment.findUnique({
+      where: {
+        id
+      }
+    });
   }
 
   public async update(id: number, item: CommentEntity): Promise<Comment> {

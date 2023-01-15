@@ -117,6 +117,7 @@ export class PostController {
     return await this.postService.deletePost(postId, req.user._id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     type: PostRdo,
     status: HttpStatus.OK,
