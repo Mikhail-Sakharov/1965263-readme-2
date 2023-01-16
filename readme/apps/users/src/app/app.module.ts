@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common';
-import {ConfigModule} from '@nestjs/config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import {MongooseModule} from '@nestjs/mongoose';
 import databaseConfig from '../config/database.config';
 import {getMongoDbConfig} from '../config/mongodb.config';
@@ -9,9 +9,17 @@ import envSchema from './env.schema';
 import {UserModule} from './user/user.module';
 import {jwtOptions} from '../config/jwt.config';
 import {rabbitMqOptions} from '../config/rabbitmq.config';
+import {MulterModule} from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        dest: configService.get<string>('MULTER_DEST')
+      }),
+      inject: [ConfigService]
+    }),
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,

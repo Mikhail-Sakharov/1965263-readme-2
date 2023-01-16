@@ -49,6 +49,18 @@ Content-Type: application/json
 POST http://localhost:3330/api/auth/63c5009dd38125d3ead28f1d/subscription HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTUxODcsImV4cCI6MTY3Mzg1NTU0N30.jLDL8npT4U02iByY4_N-d91tNFwvNIg6VTQYCDatrDA
 
+### Загрузка аватара
+POST http://localhost:3330/api/auth/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MmVjMWU0MGQyM2RkZDIyOGE5MTciLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4OTM0MzQsImV4cCI6MTY3Mzg5Mzc5NH0.RoLuoUxBQHvNkPbg1D9PMbVSKs98Dtp3aJMcEg-6cog
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="avatar.png"
+Content-Type: image/png
+
+< /home/mikhail/tmp/avatar.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 ### =============================================== ПУБЛИКАЦИИ ===================================================
 
 ### Запрос публикаций
