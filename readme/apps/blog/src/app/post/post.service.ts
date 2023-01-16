@@ -29,12 +29,12 @@ export class PostService {
 
     this.notifierRabbitClient.emit(
       {cmd: CommandEvent.AddPost},
-      {id: authorId}
+      {authorId}
     );
 
     this.usersRabbitClient.emit(
       {cmd: CommandEvent.IncrementPostsCount},
-      {id: authorId}
+      {authorId}
     );
 
     return await this.postRepository.create(postEntity);
@@ -57,7 +57,7 @@ export class PostService {
 
     this.usersRabbitClient.emit(
       {cmd: CommandEvent.IncrementPostsCount},
-      {id: authorId}
+      {authorId}
     );
 
     return await this.postRepository.create(postEntity);
@@ -123,7 +123,7 @@ export class PostService {
 
     this.usersRabbitClient.emit(
       {cmd: CommandEvent.DecrementPostsCount},
-      {id: authorId}
+      {authorId}
     );
 
     return await this.postRepository.destroy(postId);
