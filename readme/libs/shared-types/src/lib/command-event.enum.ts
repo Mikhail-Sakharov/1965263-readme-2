@@ -3,5 +3,6 @@ export enum CommandEvent {
   AddSubscriber = 'addSubscriber',
   RemoveSubscriber = 'removeSubscriber',
   AddPost = 'addPost',
-  IncrementPostsCount = 'incrementPostsCount'
+  IncrementPostsCount = 'incrementPostsCount',
+  DecrementPostsCount = 'decrementPostsCount'
 }

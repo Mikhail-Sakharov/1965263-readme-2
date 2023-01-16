@@ -112,12 +112,19 @@ export class PostService {
 
   async deletePost(postId: number, authorId: string) {
     const post = await this.postRepository.findById(postId);
+
+    if (!post) {
+      throw new Error('No posts found');
+    }
     
     if (authorId !== post.authorId) {
       throw new UnauthorizedException('You do not have sufficient privileges to delete this post!');
     }
 
-    // декремент postsCount --> usersRabbitClient.emit
+    this.usersRabbitClient.emit(
+      {cmd: CommandEvent.DecrementPostsCount},
+      {id: authorId}
+    );
 
     return await this.postRepository.destroy(postId);
   }
