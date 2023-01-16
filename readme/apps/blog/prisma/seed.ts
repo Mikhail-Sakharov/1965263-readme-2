@@ -15,6 +15,7 @@ async function fillDb() {
         '3afa868f-e0d7-450d-bef5-101667e6b835',
         '3afa868f-e0d7-450d-bef5-101667e6b834'
       ],
+      likesCount: 3,
       comments: {
         create: [
           {

@@ -2,19 +2,19 @@ import {Comment} from './comment.interface';
 import {Prisma} from '@prisma/client';
 
 interface Video {
-  title: string;
-  url: string;
+  videoTitle: string;
+  videoUrl: string;
 }
 
 interface Text {
-  title: string;
-  announcement: string;
+  textTitle: string;
+  textAnnouncement: string;
   text: string;
 }
 
 interface Quote {
-  text: string;
-  author: string;
+  quoteText: string;
+  quoteAuthor: string;
 }
 
 interface Photo {
@@ -22,8 +22,8 @@ interface Photo {
 }
 
 interface Link {
-  url: string;
-  description?: string;
+  linkUrl: string;
+  linkDescription?: string;
 }
 
 export type ContentType = Video | Text | Quote | Photo | Link | Prisma.JsonValue;

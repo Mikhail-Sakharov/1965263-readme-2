@@ -1,5 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger';
-import {IsEmail, IsString} from 'class-validator';
+import {IsEmail, IsString, MaxLength, MinLength} from 'class-validator';
 import {AUTH_USER_EMAIL_NOT_VALID} from '../auth.constant';
 
 export class CreateUserDto {
@@ -18,6 +18,8 @@ export class CreateUserDto {
     example: 'John'
   })
   @IsString()
+  @MinLength(3)
+  @MaxLength(50)
   public firstName: string;
 
   @ApiProperty({
@@ -25,6 +27,8 @@ export class CreateUserDto {
     example: 'Doe'
   })
   @IsString()
+  @MinLength(3)
+  @MaxLength(50)
   public lastName: string;
 
   @ApiProperty({
@@ -32,6 +36,8 @@ export class CreateUserDto {
     example: '123456'
   })
   @IsString()
+  @MinLength(6)
+  @MaxLength(12)
   public password: string;
 
   @ApiProperty({
@@ -39,5 +45,6 @@ export class CreateUserDto {
     example: 'avatar.png'
   })
   //@IsString()
+  //Ограничения: не больше 500 килобайт, формат jpeg или png.
   public avatarPath?: string;
 }

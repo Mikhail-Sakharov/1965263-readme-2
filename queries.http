@@ -98,14 +98,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5Y
 ### Создание публикации типа video
 POST http://localhost:3331/api/posts HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NjI3MzgsImV4cCI6MTY3Mzg2MzA5OH0.pT1pjdGUFgYp9BQqo1nNbb-tBATxBuY3D68dm60KFto
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MmVjMWU0MGQyM2RkZDIyOGE5MTciLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4Nzk4MDksImV4cCI6MTY3Mzg4MDE2OX0.VxuxY0B3PtV0cI-ZYuPMv1ALlQw1_RXpo-TML26fluM
 
 {
   "type": "video",
   "isPublished": true,
   "content": {
-    "title": "Chill Music Lab",
-    "url": "https://www.youtube.com/watch?v=Q7t4JOt-KH4"
+    "videoTitle": "Chill Music Lab Chill Music Lab Chill Music Lab",
+    "videoUrl": "https://www.youtube.com/watch?v=Q7t4JOt-KH4"
   },
   "tags": ["qwe", "asd", "zxc"]
 }
@@ -113,17 +113,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5Y
 ### Создание публикации типа text
 POST http://localhost:3331/api/posts HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MmVjMWU0MGQyM2RkZDIyOGE5MTciLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NzM4MzYsImV4cCI6MTY3Mzg3NDE5Nn0.TNn1uBE5DugmoGdmB6pk0ACJAB_jAdG71jg-_9nvzYg
 
 {
   "type": "text",
   "isPublished": true,
   "content": {
-    "title": "",
-    "announcement": "",
+    "textTitle": "",
+    "textAnnouncement": "",
     "text": ""
   },
-  "tags": ["qwe", "ert", "zxc"],
-  "authorId": "6398ab2b5a6c4e3fefe83771"
+  "tags": ["qwe", "ert", "zxc"]
 }
 
 ### Создание публикации типа quote
@@ -134,8 +134,8 @@ Content-Type: application/json
   "type": "quote",
   "isPublished": true,
   "content": {
-    "text": "",
-    "author": ""
+    "quoteText": "",
+    "quoteAuthor": ""
   },
   "tags": ["qwe", "asd", "zxc"],
   "authorId": "6398ab2b5a6c4e3fefe83771"
@@ -157,12 +157,13 @@ Content-Type: application/json
 ### Создание публикации типа link
 POST http://localhost:3331/api/posts HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MmVjMWU0MGQyM2RkZDIyOGE5MTciLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4Nzg3NzUsImV4cCI6MTY3Mzg3OTEzNX0.lJ4uzPL4N75nJICM4JQQ-PGGDz62EmkCdZjrFtp9cbI
 
 {
   "type": "link",
   "content": {
-    "url": "",
-    "description": ""
+    "linkUrl": "https://www.npmjs.com/package/class-validator#validation-decorators",
+    "linkDescription": "linkDescription"
   },
   "tags": ["qwe", "asd", "zxc"],
   "authorId": "6398ab2b5a6c4e3fefe83771"
