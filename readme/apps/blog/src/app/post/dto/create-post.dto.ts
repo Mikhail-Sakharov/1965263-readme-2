@@ -19,4 +19,10 @@ export class CreatePostDto {
     example: '["link", "beautifulphoto", "postaboutmyjourney"]'
   })
   tags?: string[];
+
+  @ApiProperty({
+    description: 'The field indicating whether the post was published or not',
+    example: 'true'
+  })
+  isPublished?: boolean;
 }

@@ -22,6 +22,7 @@ export class CommentController {
     private readonly commentService: CommentService
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     type: CommentRdo,
     status: HttpStatus.CREATED,
@@ -29,8 +30,11 @@ export class CommentController {
   })
   @Post('')
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() dto: CreateCommentDto) {
-    const comment = await this.commentService.createComment(dto);
+  async create(
+    @Body() dto: CreateCommentDto,
+    @Request() req: RawBodyRequest<LoggedUser>
+  ) {
+    const comment = await this.commentService.createComment(dto, req.user._id);
     return fillObject(CommentRdo, comment);
   }
 

@@ -12,10 +12,4 @@ export class CreateCommentDto {
     example: '1669292869059'
   })
   postId: number;
-
-  @ApiProperty({
-    description: 'The unique id of the user, who commeneted the post',
-    example: '3afa868f-e0d7-450d-bef5-101667e6b888'
-  })
-  userId: string;
 }

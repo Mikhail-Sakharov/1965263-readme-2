@@ -82,20 +82,23 @@ Content-Type: application/json
 }
 
 ### Удаление публикации
-DELETE http://localhost:3331/api/posts/59 HTTP/1.1
+DELETE http://localhost:3331/api/posts/145 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTkxNzUsImV4cCI6MTY3Mzg1OTUzNX0.jVc_O9hWww6qfywub7OxeiPHBlDeylYTyk-ClkYUdYw
 
 ### Лайк
-PATCH http://localhost:3331/api/posts/65/like HTTP/1.1
+PATCH http://localhost:3331/api/posts/143/like HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTg0NzQsImV4cCI6MTY3Mzg1ODgzNH0.MOXHQzZfBV9usVzI9vm-u4bZswOELnU7VXDgfsm3mUg
 
 ### Репост публикации
-POST http://localhost:3331/api/posts/repost/56 HTTP/1.1
+POST http://localhost:3331/api/posts/repost/143 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTg0NzQsImV4cCI6MTY3Mzg1ODgzNH0.MOXHQzZfBV9usVzI9vm-u4bZswOELnU7VXDgfsm3mUg
 
 ### Создание публикации типа video
 POST http://localhost:3331/api/posts HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTc1NDksImV4cCI6MTY3Mzg1NzkwOX0.GREF5jaEFiy8HgxIQnnapuQGKTVAYn4fT-OoZa8tR5c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTgxNjAsImV4cCI6MTY3Mzg1ODUyMH0.aUnVSlw2kDk9OYm16E-M5kEly_LnK6762jTcL0CjJGo
 
 {
   "type": "video",
@@ -170,11 +173,11 @@ Content-Type: application/json
 ### Добавление комментария
 POST http://localhost:3331/api/comments HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTkxNzUsImV4cCI6MTY3Mzg1OTUzNX0.jVc_O9hWww6qfywub7OxeiPHBlDeylYTyk-ClkYUdYw
 
 {
-  "text": "Comment text 2",
-  "postId": 64,
-  "userId": "6384f4b25b814ae07c87f627"
+  "text": "Comment text",
+  "postId": 145
 }
 
 ### Получение комментариев к публикации

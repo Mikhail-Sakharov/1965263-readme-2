@@ -9,9 +9,10 @@ export class CommentService {
     private readonly commentRepository: CommentRepository
   ) {}
 
-  async createComment(dto: CreateCommentDto) {
+  async createComment(dto: CreateCommentDto, userId: string) {
     const commentEntity = new CommentEntity({
-      ...dto
+      ...dto,
+      userId
     });
 
     return await this.commentRepository.create(commentEntity);
