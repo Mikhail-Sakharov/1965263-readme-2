@@ -14,7 +14,7 @@ import {
   ParseFilePipeBuilder
 } from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
-import {fillObject} from '@readme/core';
+import {editFileName, fillObject} from '@readme/core';
 import {MongoIdValidationPipe} from '../pipes/mongoid-validation.pipe';
 import {AuthService} from './auth.service';
 import {CreateUserDto} from './dto/create-user.dto';
@@ -25,7 +25,8 @@ import {JwtAuthGuard} from './guards/jwt-auth.guard';
 import {TransformedUserRdo} from './rdo/transformed-user.rdo';
 import {ChangePasswordDto} from './dto/change-password.dto';
 import {FileInterceptor} from '@nestjs/platform-express';
-// import {Express} from 'express';
+import {diskStorage} from 'multer';
+import {Express} from 'express';
 
 interface LoggedUser { // TODO: в shared types
   user: {
@@ -107,12 +108,12 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('avatar')
   @UseInterceptors(
-    FileInterceptor('avatar'/* , {
+    FileInterceptor('avatar', {
       storage: diskStorage({
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter
-    } */)
+        destination: './files',
+        filename: editFileName
+      })
+    })
   )
   async uploadedFile(
     @UploadedFile(
@@ -126,8 +127,9 @@ export class AuthController {
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
         })
-    ) file/* : Express.Multer.File */
+    ) file: Express.Multer.File,
+    @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    return file.originalname;
+    return this.authService.setAvatarPath(req.user._id, file.filename);
   }
 }

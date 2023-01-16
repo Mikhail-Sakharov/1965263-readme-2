@@ -142,4 +142,12 @@ export class AuthService {
 
     return updatedUserEntry;
   }
+
+  async setAvatarPath(userId: string, avatarPath: string) {
+    const user = await this.userRepository.findById(userId);
+
+    const userEntity = new UserEntity({...user, avatarPath});
+
+    return this.userRepository.update(userId, userEntity);
+  }
 }
