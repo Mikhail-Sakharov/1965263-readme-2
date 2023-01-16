@@ -22,6 +22,7 @@ export class PostService {
       ...dto,
       date: new Date,
       likes: [],
+      likesCount: 0,
       authorId,
       originalAuthorId: authorId,
       originalId: 0
@@ -93,19 +94,15 @@ export class PostService {
 
     if (existsLike) {
       const updatedLikes = postLikes.filter((id) => id !== authorId);
-      const updatedPost = {...post, likes: updatedLikes};
+      const updatedPost = {...post, likes: updatedLikes, likesCount: post.likesCount - 1};
       const updatedPostEntity = new PostEntity(updatedPost);
-
-      // декремент likesCount
 
       return await this.postRepository.update(postId, updatedPostEntity);
     }
 
     postLikes.push(authorId);
-    const updatedPost = {...post, likes: postLikes};
+    const updatedPost = {...post, likes: postLikes, likesCount: post.likesCount + 1};
     const updatedPostEntity = new PostEntity(updatedPost);
-
-    // инкремент likesCount
 
     return await this.postRepository.update(postId, updatedPostEntity);
   }

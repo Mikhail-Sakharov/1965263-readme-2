@@ -8,6 +8,7 @@ export class PostEntity implements Entity<PostEntity>, Post {
   public date: Date;
   public isPublished: boolean;
   public likes: string[];
+  public likesCount: number;
   public comments: Comment[];
   public tags?: string[];
   public isRepost: boolean;
@@ -29,6 +30,7 @@ export class PostEntity implements Entity<PostEntity>, Post {
     this.date = post.date;
     this.isPublished = post.isPublished ?? false;
     this.likes = post.likes;
+    this.likesCount = post.likesCount;
     this.tags = post.tags;
     this.isRepost = post.isRepost ?? false;
     this.authorId = post.authorId;

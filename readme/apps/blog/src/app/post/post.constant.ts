@@ -10,7 +10,7 @@ export const SortType = {
 
 export const SortTypeMap = {
   'likes': {
-    likes: 'desc'
+    likesCount: 'desc'
   },
   'comments': {
     comments: {

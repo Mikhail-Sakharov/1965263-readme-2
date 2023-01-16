@@ -18,6 +18,7 @@ model Post {
   date               DateTime
   isPublished        Boolean
   likes              String[]
+  likesCount         Int
   comments           Comment[]
   tags               String[]
   isRepost           Boolean

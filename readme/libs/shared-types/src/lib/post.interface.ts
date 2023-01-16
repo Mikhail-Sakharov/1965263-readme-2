@@ -35,6 +35,7 @@ export interface Post {
   date?: Date;
   isPublished?: boolean;
   likes?: string[];
+  likesCount: number;
   comments?: Comment[];
   tags?: string[];
   isRepost?: boolean;

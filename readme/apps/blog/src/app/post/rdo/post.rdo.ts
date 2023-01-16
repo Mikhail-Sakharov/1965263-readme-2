@@ -39,6 +39,13 @@ export class PostRdo {
   public likes: string[];
 
   @ApiProperty({
+    description: 'The number of users who set the like',
+    example: '100'
+  })
+  @Expose()
+  public likesCount: number;
+
+  @ApiProperty({
     description: 'Must be one of the following types: video, text, quote, photo, link',
     example: 'video'
   })
