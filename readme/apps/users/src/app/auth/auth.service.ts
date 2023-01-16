@@ -7,6 +7,7 @@ import {JwtService} from '@nestjs/jwt';
 import {CommandEvent} from '@readme/shared-types';
 import {RABBITMQ_SERVICE} from './auth.constant';
 import {ClientProxy} from '@nestjs/microservices';
+import {ChangePasswordDto} from './dto/change-password.dto';
 
 interface TransformedUser { // TODO: в shared types
   _id: string;
@@ -38,7 +39,7 @@ export class AuthService {
       subscribersEmails: []
     }).setPassword(dto.password);
 
-    const createdUser = await this.userRepository.create(userEntity)
+    const createdUser = await this.userRepository.create(userEntity);
 
     this.rabbitClient.emit(
       {cmd: CommandEvent.RegisterNewBlogUser},
@@ -87,6 +88,21 @@ export class AuthService {
 
   async getUser(id: string) {
     return this.userRepository.findById(id);
+  }
+
+  async changePassword({password, newPassword}: ChangePasswordDto, userId: string) {
+    const user = await this.userRepository.findById(userId);
+
+    const userEntity = new UserEntity(user);
+    const checkUserResult = await userEntity.comparePassword(password);
+
+    if (!checkUserResult) {
+      throw new UnauthorizedException('The provided password is incorrect!');
+    }
+
+    const updatedUserEntity = await userEntity.setPassword(newPassword);
+    const updatedUser = await this.userRepository.update(userId, updatedUserEntity);
+    return updatedUser;
   }
 
   async toggleSubscriberStatus(id: string, email: string) {

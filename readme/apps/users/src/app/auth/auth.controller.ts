@@ -1,4 +1,4 @@
-import {Request, Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards, RawBodyRequest} from '@nestjs/common';
+import {Request, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards, RawBodyRequest} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {fillObject} from '@readme/core';
 import {MongoIdValidationPipe} from '../pipes/mongoid-validation.pipe';
@@ -9,6 +9,7 @@ import {LoggedUserRdo} from './rdo/logged-user.rdo';
 import {UserRdo} from './rdo/user.rdo';
 import {JwtAuthGuard} from './guards/jwt-auth.guard';
 import {TransformedUserRdo} from './rdo/transformed-user.rdo';
+import {ChangePasswordDto} from './dto/change-password.dto';
 
 interface LoggedUser { // TODO: в shared types
   user: {
@@ -73,8 +74,17 @@ export class AuthController {
     return fillObject(UserRdo, subscription);
   }
 
-  @Patch('passchange')
-  async changePassword() {
-    throw new Error('"changePassword": Not implemented!')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    type: LoggedUserRdo
+  })
+  @Post('passchange')
+  @HttpCode(HttpStatus.OK)
+  async changePassword(
+    @Body() dto: ChangePasswordDto,
+    @Request() req: RawBodyRequest<LoggedUser>
+  ) {
+    const user = await this.authService.changePassword(dto, req.user._id);
+    return fillObject(UserRdo, user);
   }
 }
