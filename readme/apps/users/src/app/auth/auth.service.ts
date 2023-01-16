@@ -96,7 +96,7 @@ export class AuthService {
 
     if (existsSubscriber) {
       const updatedSubscribersEmails = subscribersEmails.filter((subscriberEmail) => subscriberEmail !== email);
-      const updatedUser = {...user, subscribersEmails: updatedSubscribersEmails};
+      const updatedUser = {...user, subscribersEmails: updatedSubscribersEmails, subscribersCount: user.subscribersCount - 1};
       const updatedUserEntity = new UserEntity(updatedUser);
       const updatedUserEntry = await this.userRepository.update(id, updatedUserEntity);
 
@@ -112,7 +112,7 @@ export class AuthService {
     }
 
     subscribersEmails.push(email);
-    const updatedUser = {...user, subscribersEmails};
+    const updatedUser = {...user, subscribersEmails, subscribersCount: user.subscribersCount + 1};
     const updatedUserEntity = new UserEntity(updatedUser);
     const updatedUserEntry = await this.userRepository.update(id, updatedUserEntity);
 

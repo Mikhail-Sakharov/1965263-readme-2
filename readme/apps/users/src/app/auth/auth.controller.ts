@@ -63,13 +63,13 @@ export class AuthController {
   @ApiResponse({
     type: UserRdo
   })
-  @Post(':id/subscription')
+  @Post(':authorId/subscription')
   @HttpCode(HttpStatus.OK)
   async subscribe(
-    @Param('id') id: string,
+    @Param('authorId') authorId: string,
     @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    const subscription = await this.authService.toggleSubscriberStatus(id, req.user.email);
+    const subscription = await this.authService.toggleSubscriberStatus(authorId, req.user.email);
     return fillObject(UserRdo, subscription);
   }
 

@@ -23,8 +23,8 @@ Content-Type: application/json
 }
 
 ### Получение детальной информации по id
-GET http://localhost:3330/api/auth/63c43862f9086f5827ffb06a HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M0Mzg2MGY5MDg2ZjU4MjdmZmIwNjYiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4MDM4ODAsImV4cCI6MTY3MzgwNDI0MH0.eDKIcAmXA8Y4xIxltUS98h3Dc1MOQf2PYIPxFLZ6gTc
+GET http://localhost:3330/api/auth/63c5009dd38125d3ead28f1d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTUxODcsImV4cCI6MTY3Mzg1NTU0N30.jLDL8npT4U02iByY4_N-d91tNFwvNIg6VTQYCDatrDA
 
 ### Авторизация
 POST http://localhost:3330/api/auth/login HTTP/1.1
@@ -36,8 +36,8 @@ Content-Type: application/json
 }
 
 ### Подписка на пользователя
-POST http://localhost:3330/api/auth/63c43862f9086f5827ffb06a/subscription HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M0Mzg2MGY5MDg2ZjU4MjdmZmIwNjYiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4MDM4ODAsImV4cCI6MTY3MzgwNDI0MH0.eDKIcAmXA8Y4xIxltUS98h3Dc1MOQf2PYIPxFLZ6gTc
+POST http://localhost:3330/api/auth/63c5009dd38125d3ead28f1d/subscription HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTUxODcsImV4cCI6MTY3Mzg1NTU0N30.jLDL8npT4U02iByY4_N-d91tNFwvNIg6VTQYCDatrDA
 
 ### =============================================== ПУБЛИКАЦИИ ===================================================
 
