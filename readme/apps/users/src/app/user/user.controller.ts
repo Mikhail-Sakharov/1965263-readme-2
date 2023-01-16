@@ -10,7 +10,7 @@ export class UserController {
     private readonly userService: UserService
   ) {}
   @EventPattern({cmd: CommandEvent.IncrementPostsCount})
-  async incrementPostsCount({id}: IncrementPostsCountDto) {
-    return await this.userService.incrementPostsCount(id);
+  async incrementPostsCount({authorId}: IncrementPostsCountDto) {
+    return await this.userService.incrementPostsCount(authorId);
   }
 }

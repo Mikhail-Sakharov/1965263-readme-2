@@ -2,7 +2,6 @@ import {Request, RawBodyRequest, Body, Controller, Delete, Get, HttpCode, HttpSt
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {fillObject, JwtAuthGuard} from '@readme/core';
 import {CreatePostDto} from './dto/create-post.dto';
-import {RepostDto} from './dto/repost.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {MAX_POSTS_COUNT} from './post.constant';
 import {PostService} from './post.service';
@@ -87,6 +86,7 @@ export class PostController {
     return fillObject(PostRdo, post);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     type: PostRdo,
     status: HttpStatus.OK,
@@ -96,9 +96,9 @@ export class PostController {
   @HttpCode(HttpStatus.OK)
   async smashLike(
     @Param('postId') postId: number,
-    @Body() dto: RepostDto
+    @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    const post = await this.postService.changeLikesCount(postId, dto.authorId);
+    const post = await this.postService.changeLikesCount(postId, req.user._id);
     return fillObject(PostRdo, post);
   }
 
@@ -113,7 +113,6 @@ export class PostController {
     @Param('postId') postId: number,
     @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    // декрементировать значение поля postsCount у юзера
     return await this.postService.deletePost(postId, req.user._id);
   }
 
@@ -127,10 +126,9 @@ export class PostController {
   @HttpCode(HttpStatus.OK)
   async repost(
     @Param('postId') postId: number,
-    @Body() dto: RepostDto
+    @Request() req: RawBodyRequest<LoggedUser>
   ) {
-    const post = await this.postService.repost(postId, dto);
-    // инкрементировать значение поля postsCount у юзера ???
+    const post = await this.postService.repost(postId, req.user._id);
     return fillObject(PostRdo, post);
   }
 }

@@ -1,6 +1,5 @@
 import {Inject, Injectable, UnauthorizedException} from '@nestjs/common';
 import {CreatePostDto} from './dto/create-post.dto';
-import {RepostDto} from './dto/repost.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {PostRepository} from './post.repository';
 import {PostEntity} from './post.entity';
@@ -18,36 +17,36 @@ export class PostService {
     @Inject(USERS_RABBITMQ_SERVICE) private readonly usersRabbitClient: ClientProxy
   ) {}
 
-  async createPost(dto: CreatePostDto, id: string) {
+  async createPost(dto: CreatePostDto, authorId: string) {
     const postEntity = new PostEntity({
       ...dto,
       date: new Date,
       likes: [],
-      authorId: id,
-      originalAuthorId: id,
+      authorId,
+      originalAuthorId: authorId,
       originalId: 0
     });
 
     this.notifierRabbitClient.emit(
       {cmd: CommandEvent.AddPost},
-      {id}
+      {id: authorId}
     );
 
     this.usersRabbitClient.emit(
       {cmd: CommandEvent.IncrementPostsCount},
-      {id}
+      {id: authorId}
     );
 
     return await this.postRepository.create(postEntity);
   }
 
-  async repost(postId: number, dto: RepostDto) {
+  async repost(postId: number, authorId: string) {
     const post = await this.postRepository.findById(postId);
     const originalAuthorId = post.authorId;
     const originalId = post.id;
     const postEntity = new PostEntity({
       ...post,
-      authorId: dto.authorId,
+      authorId,
       date: new Date,
       isPublished: true,
       isRepost: true,
@@ -55,6 +54,11 @@ export class PostService {
       originalAuthorId,
       originalId
     });
+
+    this.usersRabbitClient.emit(
+      {cmd: CommandEvent.IncrementPostsCount},
+      {id: authorId}
+    );
 
     return await this.postRepository.create(postEntity);
   }
@@ -91,12 +95,18 @@ export class PostService {
       const updatedLikes = postLikes.filter((id) => id !== authorId);
       const updatedPost = {...post, likes: updatedLikes};
       const updatedPostEntity = new PostEntity(updatedPost);
+
+      // декремент likesCount
+
       return await this.postRepository.update(postId, updatedPostEntity);
     }
 
     postLikes.push(authorId);
     const updatedPost = {...post, likes: postLikes};
     const updatedPostEntity = new PostEntity(updatedPost);
+
+    // инкремент likesCount
+
     return await this.postRepository.update(postId, updatedPostEntity);
   }
 
@@ -106,6 +116,8 @@ export class PostService {
     if (authorId !== post.authorId) {
       throw new UnauthorizedException('You do not have sufficient privileges to delete this post!');
     }
+
+    // декремент postsCount --> usersRabbitClient.emit
 
     return await this.postRepository.destroy(postId);
   }

@@ -88,17 +88,9 @@ DELETE http://localhost:3331/api/posts/59 HTTP/1.1
 PATCH http://localhost:3331/api/posts/65/like HTTP/1.1
 Content-Type: application/json
 
-{
-  "authorId": "6398ae9b5a6c4e3fefe83783"
-}
-
 ### Репост публикации
 POST http://localhost:3331/api/posts/repost/56 HTTP/1.1
 Content-Type: application/json
-
-{
-  "authorId": "6384f0dca6f361cbc1b80878"
-}
 
 ### Создание публикации типа video
 POST http://localhost:3331/api/posts HTTP/1.1
