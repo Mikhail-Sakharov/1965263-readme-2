@@ -1,8 +1,13 @@
 import {Injectable} from '@nestjs/common';
 import {MailerService} from '@nestjs-modules/mailer';
 import {Subscriber} from '@readme/shared-types';
-import {EMAIL_ADD_POST_SUBJECT, EMAIL_ADD_NEW_USER_SUBJECT, EMAIL_REMOVE_SUBSCRIBER_SUBJECT, EMAIL_ADD_SUBSCRIBER_SUBJECT} from './mail.constant';
-import {ToggleSuscriberStatusDto} from '../email-subscriber/dto/toggle-suscriber-status.dto';
+import {
+  EMAIL_ADD_POST_SUBJECT,
+  EMAIL_ADD_NEW_USER_SUBJECT,
+  EMAIL_REMOVE_SUBSCRIBER_SUBJECT,
+  EMAIL_ADD_SUBSCRIBER_SUBJECT
+} from './mail.constant';
+import {ToggleSubscriberStatusDto} from '../email-subscriber/dto/toggle-subscriber-status.dto';
 
 @Injectable()
 export class MailService {
@@ -22,7 +27,6 @@ export class MailService {
     })
   }
 
-  // имплементировать рассылку по подпискам, а не всем подряд пользователям
   public async sendNewPostNotification(emails: string[]) {
     await this.mailerService.sendMail({
       to: emails,
@@ -35,7 +39,7 @@ export class MailService {
     })
   }
 
-  public async sendAddSubscriberNotification({authorEmail, subscriberEmail}: ToggleSuscriberStatusDto) {
+  public async sendAddSubscriberNotification({authorEmail, subscriberEmail}: ToggleSubscriberStatusDto) {
     await this.mailerService.sendMail({
       to: subscriberEmail,
       subject: EMAIL_ADD_SUBSCRIBER_SUBJECT,
@@ -46,7 +50,7 @@ export class MailService {
     })
   }
 
-  public async sendRemoveSubscriberNotification({authorEmail, subscriberEmail}: ToggleSuscriberStatusDto) {
+  public async sendRemoveSubscriberNotification({authorEmail, subscriberEmail}: ToggleSubscriberStatusDto) {
     await this.mailerService.sendMail({
       to: subscriberEmail,
       subject: EMAIL_REMOVE_SUBSCRIBER_SUBJECT,

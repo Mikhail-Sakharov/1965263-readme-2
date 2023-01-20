@@ -27,15 +27,7 @@ import {ChangePasswordDto} from './dto/change-password.dto';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {diskStorage} from 'multer';
 import {Express} from 'express';
-
-interface LoggedUser { // TODO: в shared types
-  user: {
-    _id: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-  }
-}
+import {LoggedUser} from '@readme/shared-types';
 
 @ApiTags('auth')
 @Controller('auth')

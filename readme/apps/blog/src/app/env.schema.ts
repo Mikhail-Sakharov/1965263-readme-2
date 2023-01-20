@@ -5,7 +5,6 @@ const DEFAULT_HOST = 'localhost';
 export default Joi.object({
   RABBIT_HOST: Joi
     .string()
-    // .hostname()
     .default(DEFAULT_HOST)
     .required(),
   RABBIT_USER: Joi

@@ -1,6 +1,7 @@
 import {Request, RawBodyRequest, Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {fillObject, JwtAuthGuard} from '@readme/core';
+import {LoggedUser} from '@readme/shared-types';
 import {CreatePostDto} from './dto/create-post.dto';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {MAX_POSTS_COUNT} from './post.constant';
@@ -8,15 +9,6 @@ import {PostService} from './post.service';
 import {DraftPostQuery} from './query/draft-post.query';
 import {PostQuery} from './query/post.query';
 import {PostRdo} from './rdo/post.rdo';
-
-interface LoggedUser { // TODO: в shared types
-  user: {
-    _id: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-  }
-}
 
 @ApiTags('posts')
 @Controller('posts')

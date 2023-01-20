@@ -9,7 +9,7 @@ import {RABBITMQ_SERVICE} from './auth.constant';
 import {ClientProxy} from '@nestjs/microservices';
 import {ChangePasswordDto} from './dto/change-password.dto';
 
-interface TransformedUser { // TODO: в shared types
+interface TransformedUser {
   _id: string;
   email: string;
   firstName: string;

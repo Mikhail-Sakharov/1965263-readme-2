@@ -31,7 +31,6 @@ export default Joi.object({
     .required(),
   RABBIT_HOST: Joi
     .string()
-    // .hostname()
     .default(DEFAULT_HOST)
     .required(),
   RABBIT_USER: Joi

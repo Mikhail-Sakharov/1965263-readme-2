@@ -36,18 +36,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MmVjM
 GET http://localhost:3330/api/auth/63c5009dd38125d3ead28f1d HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTUxODcsImV4cCI6MTY3Mzg1NTU0N30.jLDL8npT4U02iByY4_N-d91tNFwvNIg6VTQYCDatrDA
 
-### Авторизация
+### Авторизация пользователя 1
 POST http://localhost:3330/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
   "email": "mikhail@sakharov.com",
-  "password": "654321"
+  "password": "123456"
+}
+
+### Авторизация пользователя 2
+POST http://localhost:3330/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "qwe@asd.com",
+  "password": "123456"
 }
 
 ### Подписка на пользователя
-POST http://localhost:3330/api/auth/63c5009dd38125d3ead28f1d/subscription HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5YWQzODEyNWQzZWFkMjhmMTkiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4NTUxODcsImV4cCI6MTY3Mzg1NTU0N30.jLDL8npT4U02iByY4_N-d91tNFwvNIg6VTQYCDatrDA
+POST http://localhost:3330/api/auth/63c5b90b5ef21b24b2f7d41a/subscription HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1YjkwZTVlZjIxYjI0YjJmN2Q0MWUiLCJlbWFpbCI6InF3ZUBhc2QuY29tIiwiZmlyc3ROYW1lIjoicXdlIiwibGFzdE5hbWUiOiJhc2QiLCJpYXQiOjE2NzM5MDIzNTksImV4cCI6MTY3MzkwMjcxOX0.-gRK3N1eoenX8xRuoMFzVAw-Uj5tW4UiWCiaw1x8xjQ
 
 ### Загрузка аватара
 POST http://localhost:3330/api/auth/avatar HTTP/1.1
@@ -120,7 +129,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MDA5Y
 ### Создание публикации типа video
 POST http://localhost:3331/api/posts HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1MmVjMWU0MGQyM2RkZDIyOGE5MTciLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM4Nzk4MDksImV4cCI6MTY3Mzg4MDE2OX0.VxuxY0B3PtV0cI-ZYuPMv1ALlQw1_RXpo-TML26fluM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M1YjkwYjVlZjIxYjI0YjJmN2Q0MWEiLCJlbWFpbCI6Im1pa2hhaWxAc2FraGFyb3YuY29tIiwiZmlyc3ROYW1lIjoibWlraGFpbCIsImxhc3ROYW1lIjoic2FraGFyb3YiLCJpYXQiOjE2NzM5MDI0MzYsImV4cCI6MTY3MzkwMjc5Nn0.H-A_v6R1SjCzkZpXkEn7dY40PCh2cMRBN9t0Iwn445g
 
 {
   "type": "video",

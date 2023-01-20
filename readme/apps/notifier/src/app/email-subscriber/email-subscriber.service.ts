@@ -4,7 +4,7 @@ import {CreateSubscriberDto} from './dto/create-subscriber.dto';
 import {EMAIL_SUBSCRIBER_EXISTS} from './email-subscriber.constant';
 import {EmailSubscriberEntity} from './email-subscriber.entity';
 import {MailService} from '../mail/mail.service';
-import {ToggleSuscriberStatusDto} from './dto/toggle-suscriber-status.dto';
+import {ToggleSubscriberStatusDto} from './dto/toggle-subscriber-status.dto';
 
 @Injectable()
 export class EmailSubscriberService {
@@ -26,17 +26,17 @@ export class EmailSubscriberService {
     return await this.emailSubscriberRepository.create(new EmailSubscriberEntity(subscriber));
   }
 
-  public async addPost(/* id: string */) {
-    const users = await this.emailSubscriberRepository.find();
-    const emails = users.map((user) => user.email);
+  public async addPost(id: string) {
+    const user = await this.emailSubscriberRepository.findByUserID(id);
+    const emails = user.subscribersEmails;
     
     return this.mailService.sendNewPostNotification(emails);
   }
 
-  public async toggleSubscriberStatus({authorEmail, subscriberEmail}: ToggleSuscriberStatusDto) {
+  public async toggleSubscriberStatus({authorEmail, subscriberEmail}: ToggleSubscriberStatusDto) {
     const author = await this.emailSubscriberRepository.findByEmail(authorEmail);
     const authorSubscribers = [...author.subscribersEmails];
-    const existingSubscriber = authorSubscribers.some((suscriber) => suscriber === subscriberEmail);
+    const existingSubscriber = authorSubscribers.some((subscriber) => subscriber === subscriberEmail);
 
     if (existingSubscriber) {
       const updatedAuthorSubscribers = authorSubscribers.filter((email) => email !== subscriberEmail);

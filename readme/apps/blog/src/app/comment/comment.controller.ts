@@ -1,19 +1,11 @@
 import {Request, RawBodyRequest, Body, Controller, DefaultValuePipe, Delete, Get, HttpCode, HttpStatus, Param, Post, Query, UseGuards} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {fillObject, JwtAuthGuard} from '@readme/core';
+import {LoggedUser} from '@readme/shared-types';
 import {MAX_COMMENTS_COUNT, DEFAULT_PAGE} from './comment.constant';
 import {CommentService} from './comment.service';
 import {CreateCommentDto} from './dto/create-comment.dto';
 import {CommentRdo} from './rdo/comment.rdo';
-
-interface LoggedUser { // TODO: в shared types
-  user: {
-    _id: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-  }
-}
 
 @ApiTags('comments')
 @Controller('comments')

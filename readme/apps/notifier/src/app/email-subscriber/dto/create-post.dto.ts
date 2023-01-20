@@ -8,5 +8,5 @@ export class IncrementPostsCountDto {
   })
   @IsString()
   @IsMongoId()
-  public id: string;
+  public authorId: string;
 }
